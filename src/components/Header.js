@@ -18,7 +18,7 @@ const Header = () => {
 
 
 <div className='logo'><h1>SERP Analytics Dashboard</h1>
-<p>DataForSEO API Integration
+<p>DataForSEO with TechMagnate 
 
 </p>
 </div>
@@ -28,9 +28,9 @@ const Header = () => {
 
   <div className='subbox'>
     <ul>
-      <li>
+      {/* <li>
 <Link to="/">All Task</Link>
-</li>
+</li> */}
 <li>
 <Link to="/form">Form</Link>
 </li>

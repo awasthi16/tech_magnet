@@ -111,17 +111,19 @@ const TaskResult = () => {
 
   // ---------------- JSX ----------------
   return (
-    <div className="mainb" style={{ display: "flex", gap: "20px" }}>
+    <div className="mainb" >
       {/* ---------- LEFT SIDE ---------- */}
-      <div className="left" style={{ flex: 1 }}>
-        <div className="search" style={{ marginBottom: "10px" }}>
+      <div className="left" >
+        <div className="search" >
           <input
             type="text"
-            placeholder="Search by Keyword"
+            placeholder="Search by keyword, language, location..."
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
           />
-          <button onClick={() => handleKeywordSearch(1)}>Search</button>
+          <button onClick={() => handleKeywordSearch(1)}>  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0078FF" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg></button>
         </div>
 
         <div className="resultbox1">
@@ -155,7 +157,12 @@ const TaskResult = () => {
                     <strong>Task ID:</strong> {t.task_id} <br />
                     <strong>Language:</strong> {t.language} <br />
                     <strong>Location:</strong> {t.location} <br />
-                    <strong>Status:</strong> {t.status}
+                    <strong>Status:</strong> {t.status}<br />
+                     <strong>Created At:</strong> { new Date(t.createdAt).toLocaleString()} <br />
+                     <strong>Updated At:</strong> { new Date(t.updatedAt).toLocaleString()} <br />
+
+
+                  
                   </li>
                 ))}
               </ul>
@@ -183,16 +190,16 @@ const TaskResult = () => {
       <div className="right" 
   
       >
-        <div className="search" 
-     
-        >
+        <div className="search">
           <input
             type="text"
             placeholder="Search by Task ID"
             value={searchTaskId}
             onChange={(e) => setSearchTaskId(e.target.value)}
           />
-          <button onClick={handleTaskIdSearch}>Search</button>
+          <button onClick={handleTaskIdSearch}><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0078FF" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg></button>
         </div>
 
         <div className="resultbox">
