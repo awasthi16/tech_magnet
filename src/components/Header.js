@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -21,6 +22,23 @@ const Header = () => {
 
 </p>
 </div>
+
+
+  </div>
+
+  <div className='subbox'>
+    <ul>
+      <li>
+<Link to="/">All Task</Link>
+</li>
+<li>
+<Link to="/form">Form</Link>
+</li>
+<li>
+<Link to="/result">Result</Link>
+</li>
+
+</ul>
   </div>
 
     </div>
