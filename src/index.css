@@ -287,3 +287,16 @@ gap: 10px;} */
   background-color:aliceblue;
   overflow: scroll;
 }
+
+
+
+
+
+
+.btt{background-color: lightblue;
+  border-radius: 5px;
+  width: 70px;
+  height: 30px;
+  margin: 20px;
+  color:black;
+}

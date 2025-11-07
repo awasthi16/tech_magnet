@@ -33,27 +33,7 @@ const TaskForm = () => {
   return (
     <div className="Tf">
       <h2>Create a Task</h2>
-      {/* <form onSubmit={handleSubmit}   className="form" >
-        {["keyword", "language", "location", "priority"].map((field) => (
-          <div>
-
-            <label>keyword</label>
-            <input
-            key={field}
-            name={field}
-            placeholder={field}
-            value={form[field]}
-            onChange={handleChange}
-            required
-           
-          />
-          </div>
-        ))}
-        <button type="submit" disabled={loading} >
-          {loading ? "Creating..." : "Create Task"}
-        </button>
-      </form> */}
-
+    
 
 
 
@@ -82,7 +62,7 @@ const TaskForm = () => {
 </form>
 
       {error && <p>{error}</p>}
-      {task && <TaskResult task={task} />}
+      {/* {task && <TaskResult task={task} />} */}
     </div>
   );
 };

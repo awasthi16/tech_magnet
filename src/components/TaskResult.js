@@ -2,220 +2,6 @@
 
 
 
-// // ----------------------------------search ---------------------------
-// import React, { useState, useEffect } from "react";
-// import api from "../api";
-
-// const TaskResult = () => {
-//   const [allTasks, setAllTasks] = useState([]);
-//   const [selectedTask, setSelectedTask] = useState(null);
-//   const [result, setResult] = useState(null);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState("");
-//   const [searchKeyword, setSearchKeyword] = useState(""); // left search
-//   const [searchTaskId, setSearchTaskId] = useState(""); // right search
-
-//   // Load all tasks initially
-//   useEffect(() => {
-//     fetchAllTasks();
-//   }, []);
-
-//   // Fetch all tasks from DB
-//   const fetchAllTasks = async () => {
-//     try {
-//       const { data } = await api.get("/api/tasks");
-//       setAllTasks(data);
-//     } catch (err) {
-//       setError("Failed to load tasks");
-//     }
-//   };
-
-
-//     const handleKeywordSearch = async () => {
-//     if (!searchKeyword.trim()) return fetchAllTasks();
-//     setLoading(true);
-//     setError("");
-//     try {
-//       const { data } = await api.get(`/api/tasks/search/${searchKeyword}`);
-//       setAllTasks(data);
-//     } catch {
-//       setError("No tasks found for this keyword.");
-//       setAllTasks([]);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-
-
-
-
-//   // ---------------------------------------------
-
-//   // 🔍 RIGHT: Search by task_id
-//   const handleTaskIdSearch = async () => {
-//     if (!searchTaskId.trim()) {
-//       setError("Please enter a Task ID");
-//       return;
-//     }
-//     setLoading(true);
-//     setError("");
-//     try {
-//       const { data } = await api.get(`/api/tasks/${searchTaskId}`);
-//       setResult(data);
-//     } catch {
-//       setError("Task not found or error fetching result");
-//       setResult(null);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   // Fetch result for selected task
-//   const fetchResult = async (taskId) => {
-//     setLoading(true);
-//     setError("");
-//     try {
-//       const { data } = await api.get(`/api/tasks/${taskId}`);
-//       setResult(data);
-//     } catch {
-//       setError("Error fetching result");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="mainb">
-//       {/* ---------- LEFT SIDE ---------- */}
-//       <div className="left">
-//         <div className="search">
-//           <input
-//             type="text"
-//             placeholder="Search by Keyword"
-//             value={searchKeyword}
-//             onChange={(e) => setSearchKeyword(e.target.value)}
-//           />
-//           <button onClick={handleKeywordSearch}>
-//          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-//   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-// </svg>
-//           </button>
-//         </div>
-
-//         <div className="resultbox1">
-
-
-//           {/* ------------------------------------------------- */}
-
-
-
-
-//           {/* -------------------------------------------------------------- */}
-
-
-
-
-
-
-
-//           <h3>Available Tasks:</h3>
-//           {error && <p style={styles.error}>{error}</p>}
-//           {loading ? (
-//             <p>Loading...</p>
-//           ) : allTasks.length === 0 ? (
-//             <p>No tasks found.</p>
-//           ) : (
-//             <ul className="container1">
-//               {allTasks.map((t) => (
-//                 <li
-//                   className="card1"
-//                   key={t.task_id}
-//                   onClick={() => setSelectedTask(t)}
-//                   style={{
-//                     background: selectedTask?.task_id === t.task_id ? "#e0ffe0" : "#fff",
-//                     cursor: "pointer",
-//                   }}
-//                 >
-//                   <p><strong>Keyword:</strong> {t.keyword}</p>
-//                   <p><strong>Task ID:</strong> {t.task_id}</p>
-//                   <p><strong>Language:</strong> {t.language}</p>
-//                   <p><strong>Location:</strong> {t.location}</p>
-//                   <p><strong>Status:</strong> {t.status}</p>
-//                 </li>
-//               ))}
-//             </ul>
-//           )}
-//         </div>
-//       </div>
-
-//       {/* ---------- RIGHT SIDE ---------- */}
-//       <div className="right">
-//         <div className="search">
-//           <input
-//             type="text"
-//             placeholder="Search by Task ID"
-//             value={searchTaskId}
-//             onChange={(e) => setSearchTaskId(e.target.value)}
-//           />
-//           <button onClick={handleTaskIdSearch}>
-//        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-//   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-// </svg>
-//           </button>
-//         </div>
-
-//         <div className="resultbox">
-//           {selectedTask && !searchTaskId && (
-//             <div style={styles.box}>
-//               <h3>Task ID: {selectedTask.task_id}</h3>
-//               <p>Status: {selectedTask.status}</p>
-//               <button
-//                 onClick={() => fetchResult(selectedTask.task_id)}
-//                 style={styles.btn}
-//                 disabled={loading}
-//               >
-//                 {loading ? "Fetching..." : "Get Result"}
-//               </button>
-//             </div>
-//           )}
-
-//           {error && <p style={styles.error}>{error}</p>}
-
-//           {result && (
-//             <pre style={styles.pre}>{JSON.stringify(result, null, 2)}</pre>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// const styles = {
-//   box: { background: "#fff", padding: 20, borderRadius: 10, marginTop: 10 },
-//   btn: {
-//     padding: "8px 16px",
-//     border: "none",
-//     borderRadius: 6,
-//     background: "#0078FF",
-//     color: "#fff",
-//     cursor: "pointer",
-//   },
-//   pre: {
-//     textAlign: "left",
-//     background: "#eee",
-//     padding: 10,
-//     borderRadius: 6,
-//     marginTop: 10,
-//     overflowX: "auto",
-//   },
-//   error: { color: "red" },
-// };
-
-// export default TaskResult;
-
-
-
 
 
 
@@ -340,16 +126,20 @@ const TaskResult = () => {
 
         <div className="resultbox1">
           <h3>Available Tasks:</h3>
-          {error && <p style={styles.error}>{error}</p>}
+          {error && <p
+          //  style={styles.error}
+           >{error}</p>}
           {loading ? (
             <p>Loading...</p>
           ) : allTasks.length === 0 ? (
             <p>No tasks found.</p>
           ) : (
             <>
-              <ul style={{ listStyle: "none", padding: 0 }}>
+              <ul  className="container1"
+              // style={{ listStyle: "none", padding: 0 }}
+              >
                 {allTasks.map((t) => (
-                  <li
+                  <li className="card1"
                     key={t.task_id}
                     onClick={() => setSelectedTask(t)}
                     style={{
@@ -372,14 +162,16 @@ const TaskResult = () => {
 
               {/* Pagination */}
               <div style={{ marginTop: "10px" }}>
-                <button onClick={handlePrevPage} disabled={page <= 1}>
-                  ⬅ Prev
+                <button onClick={handlePrevPage} disabled={page <= 1}     className="btt">
+                   Prev
                 </button>
-                <span style={{ margin: "0 10px" }}>
+                <span 
+             
+                >
                   Page {page} of {totalPages}
                 </span>
-                <button onClick={handleNextPage} disabled={page >= totalPages}>
-                  Next ➡
+                <button onClick={handleNextPage} disabled={page >= totalPages}   className="btt">
+                  Next 
                 </button>
               </div>
             </>
@@ -388,8 +180,12 @@ const TaskResult = () => {
       </div>
 
       {/* ---------- RIGHT SIDE ---------- */}
-      <div className="right" style={{ flex: 1 }}>
-        <div className="search" style={{ marginBottom: "10px" }}>
+      <div className="right" 
+  
+      >
+        <div className="search" 
+     
+        >
           <input
             type="text"
             placeholder="Search by Task ID"
@@ -401,12 +197,14 @@ const TaskResult = () => {
 
         <div className="resultbox">
           {selectedTask && !searchTaskId && (
-            <div style={styles.box}>
+            <div 
+        
+            >
               <h3>Task ID: {selectedTask.task_id}</h3>
               <p>Status: {selectedTask.status}</p>
               <button
                 onClick={() => fetchResult(selectedTask.task_id)}
-                style={styles.btn}
+              
                 disabled={loading}
               >
                 {loading ? "Fetching..." : "Get Result"}
@@ -414,10 +212,14 @@ const TaskResult = () => {
             </div>
           )}
 
-          {error && <p style={styles.error}>{error}</p>}
+          {error && <p
+         
+           >{error}</p>}
 
           {result && (
-            <pre style={styles.pre}>{JSON.stringify(result, null, 2)}</pre>
+            <pre
+          
+            >{JSON.stringify(result, null, 2)}</pre>
           )}
         </div>
       </div>
@@ -425,26 +227,5 @@ const TaskResult = () => {
   );
 };
 
-// ---------------- STYLES ----------------
-const styles = {
-  box: { background: "#fff", padding: 20, borderRadius: 10, marginTop: 10 },
-  btn: {
-    padding: "8px 16px",
-    border: "none",
-    borderRadius: 6,
-    background: "#0078FF",
-    color: "#fff",
-    cursor: "pointer",
-  },
-  pre: {
-    textAlign: "left",
-    background: "#eee",
-    padding: 10,
-    borderRadius: 6,
-    marginTop: 10,
-    overflowX: "auto",
-  },
-  error: { color: "red" },
-};
 
 export default TaskResult;
