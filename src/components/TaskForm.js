@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import api from "../api";
-import TaskResult from "./TaskResult";
+// import TaskResult from "./TaskResult";
 
 const TaskForm = () => {
   const [languages, setLanguages] = useState([]);
@@ -179,7 +179,7 @@ const TaskForm = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {/* Show Task Result */}
-      {task && <TaskResult task={task} />}
+      {/* {task && <TaskResult task={task} />} */}
     </div>
   );
 };
