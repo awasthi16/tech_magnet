@@ -9,3 +9,7 @@ const api = axios.create({
 });
 
 export default api;
+
+
+// https://tech-maganet-backend.vercel.app
+// http://localhost:5000
