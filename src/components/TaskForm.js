@@ -180,6 +180,7 @@ const TaskForm = () => {
 
       {/* Show Task Result */}
       {/* {task && <TaskResult task={task} />} */}
+      {task&& <p style={{color:"green"}}>Task is created</p>}
     </div>
   );
 };
