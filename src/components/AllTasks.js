@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../api"; // Make sure api.js has your backend base URL
+import api from "../api"; 
 
 const AllTasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -20,7 +20,7 @@ const AllTasks = () => {
     };
 
     fetchTasks();
-  }, []); // empty dependency → runs only once on mount
+  }, []); 
 
   if (loading) return <p style={styles.loading}>Loading tasks...</p>;
   if (error) return <p style={styles.error}>{error}</p>;
